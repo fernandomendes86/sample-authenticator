@@ -1,8 +1,5 @@
 require 'bcrypt'
-
-# generate hash 
-password_hash = BCrypt::Password.create("blabla")
-password_hash2 = BCrypt::Password.create("abcd1234")
+require './lib/data_json'
 
 puts "Welcome to the authenticator"
 25.times {print "-"}
@@ -10,14 +7,11 @@ puts
 puts "This is program will take input from the user and compare password"
 puts
 
-users = [
-          { username: "ruby", password: password_hash },
-          { username: "ruby2", password: password_hash2 }
-        ]
+users = DataJson.perform
 
 def authenticate_user(username, password, users)
   users.each do |user| 
-    return user if user[:username] == username && user[:password] == password
+    return user if user[:username] == username && BCrypt::Password.new(user[:password]) == password
   end
   "Credentials were not correct!"
 end
