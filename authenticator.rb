@@ -7,11 +7,12 @@ puts
 puts "This is program will take input from the user and compare password"
 puts
 
+include BCrypt
 users = DataJson.perform
 
 def authenticate_user(username, password, users)
   users.each do |user| 
-    return user if user[:username] == username && BCrypt::Password.new(user[:password]) == password
+    return user if user[:username] == username && Password.new(user[:password]) == password
   end
   "Credentials were not correct!"
 end
