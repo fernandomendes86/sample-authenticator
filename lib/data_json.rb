@@ -2,10 +2,10 @@ require 'json'
 require 'bcrypt'
 
 module DataJson
-
+  include BCrypt
   # generate hash 
-  password_hash = BCrypt::Password.create("blabla")
-  password_hash2 = BCrypt::Password.create("abcd1234")
+  password_hash = Password.create("blabla")
+  password_hash2 = Password.create("abcd1234")
 
   @data_users = [
     { username: "ruby", password: password_hash },

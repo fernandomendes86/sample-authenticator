@@ -7,8 +7,8 @@ puts
 puts "This is program will take input from the user and compare password"
 puts
 
-include BCrypt
 users = DataJson.perform
+include BCrypt
 
 def authenticate_user(username, password, users)
   users.each do |user| 
