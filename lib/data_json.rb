@@ -1,18 +1,15 @@
 require 'json'
-require 'bcrypt'
+require_relative 'bcrypt_auth'
 
 module DataJson
-  include BCrypt
-  # generate hash 
-  password_hash = Password.create("blabla")
-  password_hash2 = Password.create("abcd1234")
 
   @data_users = [
-    { username: "ruby", password: password_hash },
-    { username: "ruby2", password: password_hash2 }
+    { username: "ruby", password: "blabla" },
+    { username: "ruby2", password: "abcd1234" }
   ]
 
   def self.perform
+    @data_users.each { |user| user[:password] = BCryptAuth.create_hash_digest(user[:password]) }
     write_json(@data_users)
     load_json
   end

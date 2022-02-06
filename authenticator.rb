@@ -1,4 +1,4 @@
-require 'bcrypt'
+require './lib/bcrypt_auth'
 require './lib/data_json'
 
 puts "Welcome to the authenticator"
@@ -8,11 +8,10 @@ puts "This is program will take input from the user and compare password"
 puts
 
 users = DataJson.perform
-include BCrypt
 
 def authenticate_user(username, password, users)
   users.each do |user| 
-    return user if user[:username] == username && Password.new(user[:password]) == password
+    return user if user[:username] == username && BCryptAuth.new_hash_digest(user[:password]) == password
   end
   "Credentials were not correct!"
 end
